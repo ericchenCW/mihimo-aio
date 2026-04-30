@@ -21,9 +21,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set date tag
-        id: date
-        run: echo "tag=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - name: Set image metadata
+        run: |
+          echo "REPO=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+          echo "DATE_TAG=$(date +%Y-%m-%d)" >> "$GITHUB_ENV"
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -32,5 +33,5 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ steps.date.outputs.tag }}
+            ghcr.io/${{ env.REPO }}:latest
+            ghcr.io/${{ env.REPO }}:${{ env.DATE_TAG }}
