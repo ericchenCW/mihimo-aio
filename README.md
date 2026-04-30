@@ -34,6 +34,26 @@ docker run -d \
 | 7893 | Mixed | HTTP + SOCKS5 混合代理 |
 | 9090 | HTTP | RESTful API + Web 面板 |
 
+### Docker Compose
+
+```yaml
+services:
+  mihomo:
+    image: ghcr.io/ericchenCW/mihomo-aio:latest
+    container_name: mihomo
+    environment:
+      - SUBSCRIBE_URL=https://your-subscription-url
+      - SECRET=your-api-secret
+    ports:
+      - "7890:7890"
+      - "9090:9090"
+    restart: unless-stopped
+```
+
+```bash
+docker compose up -d
+```
+
 ### Build from Source
 
 ```bash

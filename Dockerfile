@@ -1,11 +1,12 @@
 FROM alpine AS builder
+ARG TARGETARCH
 
 RUN apk add --no-cache curl tar gzip
 
 # Download mihomo binary (latest release)
 RUN MIHOMO_URL=$(curl -sL -o /dev/null -w '%{url_effective}' https://github.com/MetaCubeX/mihomo/releases/latest) && \
     VERSION=$(basename "$MIHOMO_URL") && \
-    curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-amd64-${VERSION}.gz" -o /tmp/mihomo.gz && \
+    curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${TARGETARCH}-${VERSION}.gz" -o /tmp/mihomo.gz && \
     gunzip /tmp/mihomo.gz && \
     chmod +x /tmp/mihomo
 
