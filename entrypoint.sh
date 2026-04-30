@@ -15,6 +15,9 @@ fetch_config() {
 
 # Override config fields
 patch_config() {
+    # Ensure file ends with newline before patching
+    sed -i -e '$a\' "$CONFIG_FILE"
+
     # allow-lan: true
     if grep -q '^allow-lan:' "$CONFIG_FILE"; then
         sed -i 's/^allow-lan:.*/allow-lan: true/' "$CONFIG_FILE"
