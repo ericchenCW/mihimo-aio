@@ -4,9 +4,11 @@ ARG TARGETARCH
 RUN apk add --no-cache curl tar gzip
 
 # Download mihomo binary (latest release)
+# Use amd64-compatible variant for broader CPU compatibility (no v3 microarchitecture requirement)
 RUN MIHOMO_URL=$(curl -sL -o /dev/null -w '%{url_effective}' https://github.com/MetaCubeX/mihomo/releases/latest) && \
     VERSION=$(basename "$MIHOMO_URL") && \
-    curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${TARGETARCH}-${VERSION}.gz" -o /tmp/mihomo.gz && \
+    if [ "$TARGETARCH" = "amd64" ]; then ARCH="amd64-compatible"; else ARCH="$TARGETARCH"; fi && \
+    curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-${ARCH}-${VERSION}.gz" -o /tmp/mihomo.gz && \
     gunzip /tmp/mihomo.gz && \
     chmod +x /tmp/mihomo
 
