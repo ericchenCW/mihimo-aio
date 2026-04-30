@@ -13,7 +13,7 @@ docker run -d \
   -e SECRET="your-api-secret" \
   -p 7890:7890 \
   -p 9090:9090 \
-  ghcr.io/ericchenCW/mihomo-aio:latest
+  ghcr.io/ericchencw/mihomo-aio:latest
 ```
 
 管理面板: http://localhost:9090/ui
@@ -39,7 +39,7 @@ docker run -d \
 ```yaml
 services:
   mihomo:
-    image: ghcr.io/ericchenCW/mihomo-aio:latest
+    image: ghcr.io/ericchencw/mihomo-aio:latest
     container_name: mihomo
     environment:
       - SUBSCRIBE_URL=https://your-subscription-url
@@ -106,7 +106,7 @@ docker run -d \
   [-e SECRET="{SECRET}"] \
   -p {PROXY_PORT}:7890 \
   -p {UI_PORT}:9090 \
-  ghcr.io/ericchenCW/mihomo-aio:latest
+  ghcr.io/ericchencw/mihomo-aio:latest
 ```
 
 规则：
